@@ -1,28 +1,22 @@
-package com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository;
+package com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.service;
 
+import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.IFacturaRepository;
 import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.Factura;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
-import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@Repository
-@Transactional
-public class FacturaRepositoryImpl implements IFacturaRepository
-{
-    @PersistenceContext
-    private EntityManager entityManager;
+@Service
+public class FacturaServiceImpl implements IFacturaService {
+    @Autowired
+    private IFacturaRepository iFacturaRepository;
+
     @Override
-    public Factura selectPorNumero(String numero) {
-        TypedQuery<Factura> typedQuery =
-                this.entityManager.createQuery("select f from Factura f where f.numero = :numero", Factura.class);
-        typedQuery.setParameter("numero",numero);
-        return typedQuery.getResultList().get(0);
+    public Factura buscarPorNumero(String numero) {
+        return this.iFacturaRepository.selectPorNumero(numero);
     }
 
     @Override
-    public void insert(Factura factura) {
-        this.entityManager.persist(factura);
+    public void guardar(Factura factura) {
+        this.iFacturaRepository.insert(factura);
     }
 }
