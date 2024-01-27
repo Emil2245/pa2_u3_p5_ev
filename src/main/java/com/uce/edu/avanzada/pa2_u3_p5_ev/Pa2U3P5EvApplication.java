@@ -25,32 +25,32 @@ public class Pa2U3P5EvApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Factura factura = new Factura();
-        factura.setCedula("17098098");
+        factura.setCedula("948735984");
         factura.setFecha(LocalDateTime.now());
-        factura.setNumero("0001-0001");
+        factura.setNumero("0004-0004");
 
         DetalleFactura detalleFactura0 = new DetalleFactura();
         detalleFactura0.setCantidad(2);
-        detalleFactura0.setCodigoBarras("01298374");
-        detalleFactura0.setNombreProducto("Agua");
+        detalleFactura0.setCodigoBarras("8459879384");
+        detalleFactura0.setNombreProducto("Quesadilla");
         detalleFactura0.setFactura(factura);
 
         DetalleFactura detalleFactura1 = new DetalleFactura();
         detalleFactura1.setCantidad(5);
-        detalleFactura1.setCodigoBarras("98037450");
-        detalleFactura1.setNombreProducto("Cola");
+        detalleFactura1.setCodigoBarras("39485793847");
+        detalleFactura1.setNombreProducto("Frejo");
         detalleFactura1.setFactura(factura);
 
         DetalleFactura detalleFactura2 = new DetalleFactura();
-        detalleFactura2.setCantidad(8);
-        detalleFactura2.setCodigoBarras("897459038");
-        detalleFactura2.setNombreProducto("Leche");
+        detalleFactura2.setCantidad(17);
+        detalleFactura2.setCodigoBarras("3495837495");
+        detalleFactura2.setNombreProducto("Chocolate");
         detalleFactura2.setFactura(factura);
 
         DetalleFactura detalleFactura3 = new DetalleFactura();
-        detalleFactura3.setCantidad(4);
-        detalleFactura3.setCodigoBarras("09283475");
-        detalleFactura3.setNombreProducto("Avena");
+        detalleFactura3.setCantidad(8);
+        detalleFactura3.setCodigoBarras("8594859");
+        detalleFactura3.setNombreProducto("Helado");
         detalleFactura3.setFactura(factura);
 
         List<DetalleFactura> detalleFacturasList = new ArrayList<>();
@@ -62,7 +62,22 @@ public class Pa2U3P5EvApplication implements CommandLineRunner {
         factura.setDetalleFacturas(detalleFacturasList);
 
 //        this.iFacturaService.guardar(factura);
-        this.iFacturaService.buscarPorNumero("0001-0001").getDetalleFacturas().forEach(System.out::println);
+
+        System.out.println("----------------------------------");
+        this.iFacturaService.buscarFacturasInnerJoin()
+                .forEach(f -> f.getDetalleFacturas()
+                        .forEach(System.out::println));
+        System.out.println("----------------------------------");
+        this.iFacturaService.buscarFacturasRightJoin()
+                        .forEach(System.out::println);
+        System.out.println("----------------------------------");
+        this.iFacturaService.buscarFacturasLeftJoin()
+                        .forEach(System.out::println);
+        System.out.println("----------------------------------");
+        this.iFacturaService.buscarFacturasFullJoin()
+                        .forEach(f -> f.getDetalleFacturas()
+                                .forEach(System.out::println));
+
 
     }
 }
