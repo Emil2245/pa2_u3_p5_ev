@@ -28,7 +28,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 
     @Override
     public List<Factura> selectFacturasInnerJoin() {
-        TypedQuery<Factura> typedQuery = this.entityManager.createQuery("SELECT f FROM Factura f INNER JOIN f.detalleFacturas d", Factura.class);
+        TypedQuery<Factura> typedQuery = this.entityManager.createQuery("SELECT f FROM Factura f INNER JOIN f.detalleFacturas", Factura.class);
         List<Factura> list = typedQuery.getResultList();
         list.forEach(e -> e.getDetalleFacturas().size());//ahorrandonos el EAGER
         return list;

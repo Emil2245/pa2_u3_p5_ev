@@ -1,16 +1,16 @@
 package com.uce.edu.avanzada.pa2_u3_p5_ev;
 
-import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.DetalleFactura;
-import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.Factura;
-import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.service.IFacturaService;
+import com.uce.edu.avanzada.pa2_u3_p5_ev.hotel.repository.model.Habitacion;
+import com.uce.edu.avanzada.pa2_u3_p5_ev.hotel.repository.model.Hotel;
+import com.uce.edu.avanzada.pa2_u3_p5_ev.hotel.service.IHotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @SpringBootApplication
 public class Pa2U3P5EvApplication implements CommandLineRunner {
@@ -20,64 +20,50 @@ public class Pa2U3P5EvApplication implements CommandLineRunner {
     }
 
     @Autowired
-    private IFacturaService iFacturaService;
+    private IHotelService iHotelService;
 
     @Override
     public void run(String... args) throws Exception {
-        Factura factura = new Factura();
-        factura.setCedula("948735984");
-        factura.setFecha(LocalDateTime.now());
-        factura.setNumero("0004-0004");
 
-        DetalleFactura detalleFactura0 = new DetalleFactura();
-        detalleFactura0.setCantidad(2);
-        detalleFactura0.setCodigoBarras("8459879384");
-        detalleFactura0.setNombreProducto("Quesadilla");
-        detalleFactura0.setFactura(factura);
+        //Actualizacion
+        Hotel hotel1 = new Hotel();
+        hotel1.setNombre("Hotel Plata");
+        hotel1.setDireccion("En la bahia");
+        hotel1.setTienePiscina(true);
 
-        DetalleFactura detalleFactura1 = new DetalleFactura();
-        detalleFactura1.setCantidad(5);
-        detalleFactura1.setCodigoBarras("39485793847");
-        detalleFactura1.setNombreProducto("Frejo");
-        detalleFactura1.setFactura(factura);
+        Habitacion habitacion1 = new Habitacion();
+        habitacion1.setClase("Plata");
+        habitacion1.setHotel(hotel1);
+        habitacion1.setNumero("1000");
+        habitacion1.setTieneVistaPiscina(true);
+        Habitacion habitacion2 = new Habitacion();
+        habitacion2.setClase("Bronze");
+        habitacion2.setHotel(hotel1);
+        habitacion2.setNumero("1001");
+        habitacion2.setTieneVistaPiscina(false);
 
-        DetalleFactura detalleFactura2 = new DetalleFactura();
-        detalleFactura2.setCantidad(17);
-        detalleFactura2.setCodigoBarras("3495837495");
-        detalleFactura2.setNombreProducto("Chocolate");
-        detalleFactura2.setFactura(factura);
+        List<Habitacion> habitaciones2 = new ArrayList<>();
+        habitaciones2.add(habitacion1);
+        habitaciones2.add(habitacion2);
 
-        DetalleFactura detalleFactura3 = new DetalleFactura();
-        detalleFactura3.setCantidad(8);
-        detalleFactura3.setCodigoBarras("8594859");
-        detalleFactura3.setNombreProducto("Helado");
-        detalleFactura3.setFactura(factura);
+        hotel1.setHabitaciones(habitaciones2);
 
-        List<DetalleFactura> detalleFacturasList = new ArrayList<>();
-        detalleFacturasList.add(detalleFactura0);
-        detalleFacturasList.add(detalleFactura1);
-        detalleFacturasList.add(detalleFactura2);
-        detalleFacturasList.add(detalleFactura3);
+//        this.iHotelService.guardar(hotel1);
 
-        factura.setDetalleFacturas(detalleFacturasList);
 
-//        this.iFacturaService.guardar(factura);
-
-        System.out.println("----------------------------------");
-        this.iFacturaService.buscarFacturasInnerJoin()
-                .forEach(f -> f.getDetalleFacturas()
+        this.iHotelService.buscarHotelsInnerJoin()
+                .forEach(f -> f.getHabitaciones()
                         .forEach(System.out::println));
         System.out.println("----------------------------------");
-        this.iFacturaService.buscarFacturasRightJoin()
-                        .forEach(System.out::println);
+        this.iHotelService.buscarHotelsRightJoin()
+                .forEach(System.out::println);
         System.out.println("----------------------------------");
-        this.iFacturaService.buscarFacturasLeftJoin()
-                        .forEach(System.out::println);
+        this.iHotelService.buscarHotelsLeftJoin()
+                .forEach(System.out::println);
         System.out.println("----------------------------------");
-        this.iFacturaService.buscarFacturasFullJoin()
-                        .forEach(f -> f.getDetalleFacturas()
-                                .forEach(System.out::println));
-
+        this.iHotelService.buscarHotelsFullJoin()
+                .forEach(f -> f.getHabitaciones()
+                        .forEach(System.out::println));
 
     }
 }
