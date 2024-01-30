@@ -10,6 +10,8 @@ public interface IFacturaRepository {
     List<Factura> selectFacturasRightJoin();
     List<Factura> selectFacturasLeftJoin();
     List<Factura> selectFacturasFullJoin();
+    List<Factura> selectFacturasWhereJoin();
+    List<Factura> selectFacturasJoinFetch();
     void insert(Factura factura);
 
 }

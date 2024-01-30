@@ -10,6 +10,8 @@ public interface IFacturaService {
     List<Factura> buscarFacturasRightJoin();
     List<Factura> buscarFacturasLeftJoin();
     List<Factura> buscarFacturasFullJoin();
+    List<Factura> buscarFacturasWhereJoin();
+    List<Factura> buscarFacturasJoinFetch();
     void guardar(Factura factura);
 
 }

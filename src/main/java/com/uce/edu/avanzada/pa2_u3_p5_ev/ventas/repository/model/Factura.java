@@ -18,7 +18,7 @@ public class Factura {
     private LocalDateTime fecha;
     @Column(name = "fact_cedula")
     private String cedula;
-    @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
     private List<DetalleFactura> detalleFacturas;
 
     ////////////////////get set

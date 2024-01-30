@@ -30,7 +30,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
     public List<Factura> selectFacturasInnerJoin() {
         TypedQuery<Factura> typedQuery = this.entityManager.createQuery("SELECT f FROM Factura f INNER JOIN f.detalleFacturas", Factura.class);
         List<Factura> list = typedQuery.getResultList();
-        list.forEach(e -> e.getDetalleFacturas().size());//ahorrandonos el EAGER
+        list.forEach(e -> e.getDetalleFacturas().size());//bajo demanda, osea siguen en LAZY//ahorrandonos el EAGER
         return list;
     }
 
@@ -38,7 +38,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
     public List<Factura> selectFacturasRightJoin() {
         TypedQuery<Factura> typedQuery = this.entityManager.createQuery("SELECT f FROM Factura f RIGHT JOIN f.detalleFacturas d", Factura.class);
         List<Factura> list = typedQuery.getResultList();
-        list.forEach(e -> e.getDetalleFacturas().size());
+        list.forEach(e -> e.getDetalleFacturas().size());//bajo demanda, osea siguen en LAZY
         return list;
     }
 
@@ -46,7 +46,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
     public List<Factura> selectFacturasLeftJoin() {
         TypedQuery<Factura> typedQuery = this.entityManager.createQuery("SELECT f FROM Factura f LEFT JOIN f.detalleFacturas d", Factura.class);
         List<Factura> list = typedQuery.getResultList();
-        list.forEach(e -> e.getDetalleFacturas().size());
+        list.forEach(e -> e.getDetalleFacturas().size());//bajo demanda, osea siguen en LAZY
         return list;
     }
 
@@ -54,8 +54,25 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
     public List<Factura> selectFacturasFullJoin() {
         TypedQuery<Factura> typedQuery = this.entityManager.createQuery("SELECT f FROM Factura f FULL JOIN f.detalleFacturas d", Factura.class);
         List<Factura> list = typedQuery.getResultList();
-        list.forEach(e -> e.getDetalleFacturas().size());
+        list.forEach(e -> e.getDetalleFacturas().size());//bajo demanda, osea siguen en LAZY
         return list;
+    }
+
+    @Override
+    public List<Factura> selectFacturasWhereJoin() {
+        TypedQuery<Factura> query =
+                this.entityManager.createQuery("select f from Factura f, DetalleFactura m where f = m.factura", Factura.class);
+        List<Factura> lista = query.getResultList();
+        lista.forEach(factura -> factura.getDetalleFacturas().size());//bajo demanda, osea siguen en LAZY
+        return lista;
+    }
+
+    @Override
+    public List<Factura> selectFacturasJoinFetch() //no hace falta la demanda de detalles al JPA
+    {
+        TypedQuery<Factura> query =
+                this.entityManager.createQuery("select f from Factura f join fetch f.detalleFacturas", Factura.class);
+        return query.getResultList();
     }
 
     @Override
