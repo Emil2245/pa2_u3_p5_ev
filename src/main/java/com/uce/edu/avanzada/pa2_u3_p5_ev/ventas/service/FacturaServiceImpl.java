@@ -2,9 +2,11 @@ package com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.service;
 
 import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.IFacturaRepository;
 import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.Factura;
+import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.dto.FacturaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -48,7 +50,33 @@ public class FacturaServiceImpl implements IFacturaService {
     }
 
     @Override
+    public int actualizarFechas(LocalDateTime fechaNueva, LocalDateTime fechaActual) {
+        return this.iFacturaRepository.actualizarFechas(fechaNueva,fechaActual);
+    }
+
+    @Override
     public void guardar(Factura factura) {
         this.iFacturaRepository.insert(factura);
+    }
+
+    @Override
+    public void actualizar(Factura factura) {
+        this.iFacturaRepository.actualizar(factura);
+    }
+
+    @Override
+    public int borrarPorNumero(String numero) {
+        return this.iFacturaRepository.eliminarPorNumero(numero);
+
+    }
+
+    @Override
+    public void borrar(Integer id) {
+        this.iFacturaRepository.eliminar(id);
+    }
+
+    @Override
+    public List<FacturaDTO> buscarFacturasDTO() {
+        return this.iFacturaRepository.selectFacturasDTO();
     }
 }

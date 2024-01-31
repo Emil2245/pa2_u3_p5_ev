@@ -1,6 +1,7 @@
 package com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository;
 
 import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.Factura;
+import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.dto.FacturaDTO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -8,6 +9,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -15,6 +17,11 @@ import java.util.List;
 public class FacturaRepositoryImpl implements IFacturaRepository {
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    public Factura select(Integer id) {
+        return this.entityManager.find(Factura.class,id);
+    }
 
     @Override
     public Factura selectPorNumero(String numero) {
@@ -76,7 +83,41 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
     }
 
     @Override
+    public int actualizarFechas(LocalDateTime fechaNueva, LocalDateTime fechaActual) {
+        Query query = this.entityManager.createQuery("update Factura f set f.fecha = :fechaActual where f.fecha >= :fechaNueva");
+        query.setParameter("fechaNueva", fechaNueva);
+        query.setParameter("fechaActual", fechaActual);
+        return query.executeUpdate();
+    }
+
+    @Override
+    public void actualizar(Factura factura) {
+        this.entityManager.merge(factura);
+    }
+
+    @Override
+    public void eliminar(Integer id) {
+        this.entityManager.remove(this.select(id));
+
+    }
+
+    @Override
+    public int eliminarPorNumero(String numero) {
+        Query query = this.entityManager.createQuery("delete Factura f where f.numero= :numero");
+        query.setParameter("numero", numero);
+        return query.executeUpdate();
+    }
+
+    @Override
     public void insert(Factura factura) {
         this.entityManager.persist(factura);
+    }
+
+    @Override
+    public List<FacturaDTO> selectFacturasDTO() {
+//        TypedQuery<FacturaDTO> query = this.entityManager.createQuery("select new com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.dto.FacturaDTO(f.numero,f.fecha) from Factura f", FacturaDTO.class);
+//        return query.getResultList();
+        return this.entityManager.createQuery("select f.numero,f.fecha from Factura f", FacturaDTO.class).getResultList();
+
     }
 }

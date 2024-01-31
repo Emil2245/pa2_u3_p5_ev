@@ -1,6 +1,7 @@
 package com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -8,8 +9,8 @@ import java.util.List;
 @Table(name = "factura")
 public class Factura {
     @Id
-    @SequenceGenerator(name = "generator_factura", allocationSize = 1,sequenceName = "seq_factura_id")
-    @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "generator_factura")
+    @SequenceGenerator(name = "generator_factura", allocationSize = 1, sequenceName = "seq_factura_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator_factura")
     @Column(name = "fact_id")
     private Integer id;
     @Column(name = "fact_numero")
@@ -18,7 +19,7 @@ public class Factura {
     private LocalDateTime fecha;
     @Column(name = "fact_cedula")
     private String cedula;
-    @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<DetalleFactura> detalleFacturas;
 
     ////////////////////get set

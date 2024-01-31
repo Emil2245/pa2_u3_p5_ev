@@ -17,7 +17,7 @@ public class DetalleFactura {
     private String codigoBarras;
     @Column (name ="defa_nombre_producto")
     private String nombreProducto;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "defa_id_factura")
     private Factura factura;
 

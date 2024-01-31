@@ -1,16 +1,12 @@
 package com.uce.edu.avanzada.pa2_u3_p5_ev;
 
-import com.uce.edu.avanzada.pa2_u3_p5_ev.hotel.repository.model.Habitacion;
-import com.uce.edu.avanzada.pa2_u3_p5_ev.hotel.repository.model.Hotel;
-import com.uce.edu.avanzada.pa2_u3_p5_ev.hotel.service.IHotelService;
 import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.service.IFacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
 
 @SpringBootApplication
@@ -25,24 +21,17 @@ public class Pa2U3P5EvApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        System.out.println("UPDATE: ");
+        System.out.println(this.iFacturaService.actualizarFechas(
+                LocalDateTime.of(2024,01,25,0,0,0),
+                LocalDateTime.now()));
+        System.out.println("------------------------------------------\nDELETE: ");
+//        System.out.println(this.iFacturaService.borrarPorNumero("0002-0002"));
+        System.out.println("------------------------------------------");
+        this.iFacturaService.buscarFacturasDTO().forEach(System.out::println);
 
-        this.iFacturaService.buscarFacturasWhereJoin().forEach(factura ->
-                factura.getDetalleFacturas().forEach(detalleFactura ->
-                        System.out.println(detalleFactura.getNombreProducto())));
-        System.out.println("------------------------------------------");
-        this.iFacturaService.buscarFacturasInnerJoin().forEach(factura ->
-        {
-            System.out.println(factura.getNumero());
-            factura.getDetalleFacturas().forEach(detalleFactura ->
-                    System.out.println(detalleFactura.getNombreProducto()));
-        });
-        System.out.println("------------------------------------------");
-        this.iFacturaService.buscarFacturasJoinFetch().forEach(factura ->
-        {
-            System.out.println(factura.getNumero());
-            factura.getDetalleFacturas().forEach(detalleFactura ->
-                    System.out.println(detalleFactura.getNombreProducto()));
-        });
+
+
 
 
     }
