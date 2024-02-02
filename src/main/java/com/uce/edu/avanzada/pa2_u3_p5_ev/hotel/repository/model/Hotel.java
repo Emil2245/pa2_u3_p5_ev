@@ -29,7 +29,7 @@ public class Hotel {
                 ", nombre='" + nombre + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", tienePiscina=" + tienePiscina +
-                ", habitaciones=" + habitaciones.stream().count() +
+                ", habitaciones=" + habitaciones +
                 '}';
     }
 

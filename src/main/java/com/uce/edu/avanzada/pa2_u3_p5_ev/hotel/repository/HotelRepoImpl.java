@@ -77,4 +77,72 @@ public class HotelRepoImpl implements IHotelRepository {
                 hotel
         );
     }
+
+    @Override
+    public List<Hotel> selectHotelsWithHabitaciones() {
+        return this.entityManager.createQuery("select h from Hotel h inner join h.habitaciones", Hotel.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Hotel> selectHotelByNameWithHabitaciones(String nombre) {
+        return this.entityManager.createQuery("select h from Hotel h inner join h.habitaciones where h.nombre= :nombre", Hotel.class)
+                .setParameter("nombre", nombre)
+                .getResultList();
+    }
+
+    @Override
+    public List<Hotel> selectAllHotels() {
+        return this.entityManager
+                .createQuery("select h from Hotel h left join h.habitaciones", Hotel.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Hotel> selectAllHotelsWithPool() {
+        return this.entityManager
+                .createQuery("select h from Hotel h left join h.habitaciones where h.tienePiscina=true", Hotel.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Hotel> selectAllHabitaciones() {
+        return this.entityManager
+                .createQuery("select h from Hotel h right join h.habitaciones", Hotel.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Hotel> selectAllHabitacionesByDireccion(String direccion) {
+        return this.entityManager
+                .createQuery("select h from Hotel h right join h.habitaciones where h.direccion=:direccion", Hotel.class)
+                .setParameter("direccion",direccion)
+                .getResultList();
+    }
+
+    @Override
+    public List<Hotel> selectHabitacionesConVistaPiscina() {
+        return this.entityManager
+                .createQuery("select h from Hotel h full join h.habitaciones k where k.tieneVistaPiscina =true", Hotel.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Hotel> selectHabitacionesSinVistaPiscina() {
+        return this.entityManager
+                .createQuery("select h from Hotel h full join h.habitaciones k where k.tieneVistaPiscina =false", Hotel.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Hotel> selectHotelConPiscina() {
+        return this.entityManager.createQuery("select y from Hotel y join fetch y.habitaciones p where y.tienePiscina ",Hotel.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Hotel> selectHotelSinPiscina() {
+        return this.entityManager.createQuery("select y from Hotel y join fetch y.habitaciones p where y.tienePiscina ",Hotel.class)
+                .getResultList();
+    }
 }

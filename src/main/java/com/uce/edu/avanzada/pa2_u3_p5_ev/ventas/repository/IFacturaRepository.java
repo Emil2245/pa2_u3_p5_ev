@@ -5,6 +5,7 @@ import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.dto.FacturaDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface IFacturaRepository {
     Factura select(Integer id);
@@ -21,6 +22,5 @@ public interface IFacturaRepository {
     void eliminar(Integer id);
     int eliminarPorNumero(String numero);
     List<FacturaDTO> selectFacturasDTO();
-
 
 }

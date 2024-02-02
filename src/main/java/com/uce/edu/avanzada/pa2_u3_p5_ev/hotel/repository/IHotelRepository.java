@@ -12,6 +12,22 @@ public interface IHotelRepository {
     List<Hotel> selectHotelsRightJoin();
     List<Hotel> selectHotelsLeftJoin();
     List<Hotel> selectHotelsFullJoin();
+    //InnerJoin
+    List<Hotel> selectHotelsWithHabitaciones();
+    List<Hotel> selectHotelByNameWithHabitaciones(String nombre);
+    //LeftJoin
+    List<Hotel> selectAllHotels();
+    List<Hotel> selectAllHotelsWithPool();
+    //RightJoin
+    List<Hotel> selectAllHabitaciones();
+    List<Hotel> selectAllHabitacionesByDireccion(String direccion);
+    //fullJoin
+    List<Hotel> selectHabitacionesConVistaPiscina();
+    List<Hotel> selectHabitacionesSinVistaPiscina();
+    //fetch
+    List<Hotel> selectHotelConPiscina();
+    List<Hotel> selectHotelSinPiscina();
+    //
     void insertar(Hotel hotel);
 
     void actualizar(Hotel hotel);

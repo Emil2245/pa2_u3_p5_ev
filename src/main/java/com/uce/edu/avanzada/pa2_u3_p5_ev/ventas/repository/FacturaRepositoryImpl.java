@@ -10,7 +10,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Transactional
@@ -118,6 +120,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 //        TypedQuery<FacturaDTO> query = this.entityManager.createQuery("select new com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.dto.FacturaDTO(f.numero,f.fecha) from Factura f", FacturaDTO.class);
 //        return query.getResultList();
         return this.entityManager.createQuery("select f.numero,f.fecha from Factura f", FacturaDTO.class).getResultList();
-
     }
+
+
 }
