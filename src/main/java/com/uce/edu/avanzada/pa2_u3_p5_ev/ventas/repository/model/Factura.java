@@ -43,6 +43,15 @@ public class Factura {
                 '}';
     }
 
+    public Factura() {
+    }
+
+    public Factura(String numero, LocalDateTime fecha, String cedula) {
+        this.numero = numero;
+        this.fecha = fecha;
+        this.cedula = cedula;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -1,5 +1,6 @@
 package com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.service;
 
+import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.Cliente;
 import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.Factura;
 import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.dto.FacturaDTO;
 
@@ -14,7 +15,7 @@ public interface IFacturaService {
     List<Factura> buscarFacturasFullJoin();
     List<Factura> buscarFacturasWhereJoin();
     List<Factura> buscarFacturasJoinFetch();
-    void guardar(Factura factura);
+    void guardar(Factura factura, Cliente cliente);
     int actualizarFechas(LocalDateTime fechaNueva, LocalDateTime fechaActual);
     void actualizar(Factura factura);
     int borrarPorNumero(String numero);

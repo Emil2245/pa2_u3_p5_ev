@@ -1,10 +1,15 @@
 package com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.service;
 
 import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.IFacturaRepository;
+import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.Cliente;
 import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.Factura;
 import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.dto.FacturaDTO;
+import jakarta.transaction.Transaction;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +18,8 @@ import java.util.List;
 public class FacturaServiceImpl implements IFacturaService {
     @Autowired
     private IFacturaRepository iFacturaRepository;
+    @Autowired
+    private IClienteService iClienteService;
 
     @Override
     public Factura buscarPorNumero(String numero) {
@@ -55,8 +62,16 @@ public class FacturaServiceImpl implements IFacturaService {
     }
 
     @Override
-    public void guardar(Factura factura) {
+    @Transactional(value = Transactional.TxType.REQUIRED)
+    public void guardar(Factura factura, Cliente cliente) {
+        System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
         this.iFacturaRepository.insert(factura);
+
+        try{
+            this.iClienteService.guardar(cliente);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
