@@ -12,6 +12,7 @@ public class ClienteImplRepo implements IClienteRepo {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional(value = Transactional.TxType.REQUIRES_NEW)
     @Override
     public void insertar(Cliente cliente) {
         this.entityManager.persist(cliente);

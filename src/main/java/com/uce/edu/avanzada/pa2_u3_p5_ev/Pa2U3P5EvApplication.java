@@ -31,12 +31,15 @@ public class Pa2U3P5EvApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
         System.out.println("----------------");
-        this.iFacturaService.guardar(
-                new Factura("84753897",LocalDateTime.now(),"98435793875"),
-                new Cliente(null,"M")
-        );
+//        this.iFacturaService.guardar(
+//                new Factura("598645465",LocalDateTime.now(),"684513248"),
+//                new Cliente(null,"M")
+//        );
+
+        System.out.println("Main:\n " + TransactionSynchronizationManager.isActualTransactionActive());
+        this.iFacturaService.prueba();
+
 
 
     }

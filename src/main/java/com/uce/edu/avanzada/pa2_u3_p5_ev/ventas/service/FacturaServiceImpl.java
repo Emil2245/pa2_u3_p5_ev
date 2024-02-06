@@ -69,8 +69,7 @@ public class FacturaServiceImpl implements IFacturaService {
 
         try{
             this.iClienteService.guardar(cliente);
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (Exception ignored){
         }
     }
 
@@ -93,5 +92,13 @@ public class FacturaServiceImpl implements IFacturaService {
     @Override
     public List<FacturaDTO> buscarFacturasDTO() {
         return this.iFacturaRepository.selectFacturasDTO();
+    }
+
+    @Override
+    @Transactional(value = Transactional.TxType.NOT_SUPPORTED)
+    public void prueba() {
+        System.out.println("Este metodo es de prueba");
+        System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
+
     }
 }

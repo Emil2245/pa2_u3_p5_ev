@@ -111,8 +111,10 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
     }
 
     @Override
+    @Transactional(value = Transactional.TxType.MANDATORY)
     public void insert(Factura factura) {
         this.entityManager.persist(factura);
+
     }
 
     @Override

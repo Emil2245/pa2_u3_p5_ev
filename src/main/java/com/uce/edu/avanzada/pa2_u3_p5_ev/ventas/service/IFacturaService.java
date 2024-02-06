@@ -22,6 +22,8 @@ public interface IFacturaService {
     void borrar(Integer id);
     List<FacturaDTO> buscarFacturasDTO();
 
+    void prueba();
+
 
 
 
