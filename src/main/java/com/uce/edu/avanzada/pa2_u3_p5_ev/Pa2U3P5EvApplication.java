@@ -1,19 +1,11 @@
 package com.uce.edu.avanzada.pa2_u3_p5_ev;
 
-import com.uce.edu.avanzada.pa2_u3_p5_ev.hotel.repository.model.Hotel;
-import com.uce.edu.avanzada.pa2_u3_p5_ev.hotel.service.IHotelService;
-import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.Cliente;
-import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model.Factura;
 import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.service.IClienteService;
 import com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.service.IFacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
-
-import java.time.LocalDateTime;
-import java.util.*;
 
 
 @SpringBootApplication
@@ -31,15 +23,11 @@ public class Pa2U3P5EvApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        System.out.println("----------------");
-//        this.iFacturaService.guardar(
-//                new Factura("598645465",LocalDateTime.now(),"684513248"),
-//                new Cliente(null,"M")
-//        );
 
-        System.out.println("Main:\n " + TransactionSynchronizationManager.isActualTransactionActive());
-        this.iFacturaService.prueba();
-
+//        this.iFacturaService.pruebaSupports();
+        try{
+            this.iFacturaService.pruebaNever();
+        }catch (Exception ignored){}
 
 
     }

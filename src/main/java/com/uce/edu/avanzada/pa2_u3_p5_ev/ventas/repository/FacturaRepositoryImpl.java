@@ -124,5 +124,9 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
         return this.entityManager.createQuery("select f.numero,f.fecha from Factura f", FacturaDTO.class).getResultList();
     }
 
-
+    @Override
+    @Transactional(value = Transactional.TxType.NOT_SUPPORTED)
+    public List<Factura> selectTodo() {
+        return this.entityManager.createQuery("select l from Factura l", Factura.class).getResultList();
+    }
 }

@@ -22,4 +22,19 @@ public class ClienteImplService implements IClienteService {
         System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
         this.iClienteRepo.insertar(cliente);
     }
+    @Override
+    @Transactional(value = Transactional.TxType.SUPPORTS)
+    public void pruebaSupports() {
+        System.out.println("Un metodo supports");
+        System.out.println("Prueba supports Cliente: "+TransactionSynchronizationManager.isActualTransactionActive());
+    }
+
+
+    @Override
+    @Transactional(value = Transactional.TxType.NEVER)
+    public void pruebaNever() {
+        System.out.println("Un metodo never");
+        System.out.println("Prueba never Cliente: "+TransactionSynchronizationManager.isActualTransactionActive());
+
+    }
 }

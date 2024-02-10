@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -64,6 +65,9 @@ public class FacturaServiceImpl implements IFacturaService {
     @Override
     @Transactional(value = Transactional.TxType.REQUIRED)
     public void guardar(Factura factura, Cliente cliente) {
+//        BigDecimal valor = new BigDecimal(100);
+//        valor= valor.multiply(factura.getIVA());
+
         System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
         this.iFacturaRepository.insert(factura);
 
@@ -100,5 +104,29 @@ public class FacturaServiceImpl implements IFacturaService {
         System.out.println("Este metodo es de prueba");
         System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
 
+    }
+
+    @Override
+    @Transactional(value = Transactional.TxType.REQUIRED)
+    public void pruebaSupports() {
+        System.out.println("Un metodo supports");
+        System.out.println("Prueba supports Factura: "+TransactionSynchronizationManager.isActualTransactionActive());
+        System.out.println("------------------------------------");
+        this.iClienteService.pruebaSupports();
+    }
+
+    @Override
+    @Transactional(value = Transactional.TxType.REQUIRED)
+    public List<Factura> buscarTodo() {
+        return this.iFacturaRepository.selectTodo();
+    }
+
+    @Override
+    @Transactional(value = Transactional.TxType.REQUIRES_NEW)
+    public void pruebaNever() {
+        System.out.println("Un metodo never");
+        System.out.println("Prueba never Factura: "+TransactionSynchronizationManager.isActualTransactionActive());
+        System.out.println("------------------------------------");
+        this.iClienteService.pruebaNever();
     }
 }

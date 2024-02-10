@@ -22,5 +22,6 @@ public interface IFacturaRepository {
     void eliminar(Integer id);
     int eliminarPorNumero(String numero);
     List<FacturaDTO> selectFacturasDTO();
+    List<Factura> selectTodo();
 
 }

@@ -2,6 +2,7 @@ package com.uce.edu.avanzada.pa2_u3_p5_ev.ventas.repository.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,8 +22,18 @@ public class Factura {
     private String cedula;
     @OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<DetalleFactura> detalleFacturas;
-
+    @Transient
+    private BigDecimal IVA;
     ////////////////////get set
+
+
+    public BigDecimal getIVA() {
+        return IVA;
+    }
+
+    public void setIVA(BigDecimal IVA) {
+        this.IVA = IVA;
+    }
 
     public List<DetalleFactura> getDetalleFacturas() {
         return detalleFacturas;
