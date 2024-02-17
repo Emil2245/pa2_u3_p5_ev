@@ -23,12 +23,12 @@ public class Autor {
     public Autor() {
     }
 
-    public Autor(String nombre, String nacionalidad) {
+    public Autor(String nombre, String nacionalidad, Set<Libro> libros) {
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
+        this.libros = libros;
     }
-
-    ////////////////////////////
+////////////////////////////
     //get set & toString
 
 

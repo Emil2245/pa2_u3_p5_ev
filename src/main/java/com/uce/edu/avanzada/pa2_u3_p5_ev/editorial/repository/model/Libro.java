@@ -19,13 +19,12 @@ public class Libro {
     private String titulo;
     @Column(name = "libr_fechaPublicacion")
     private LocalDateTime fechaPublicacion;
-    @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "autor_libro",
             joinColumns = @JoinColumn(name = "autor_libro_id_libro"),
             inverseJoinColumns = @JoinColumn(name = "autor_libro_id_autor"))
     private Set<Autor> autores;
     /////////////////////
-
 
     public Libro() {
     }
