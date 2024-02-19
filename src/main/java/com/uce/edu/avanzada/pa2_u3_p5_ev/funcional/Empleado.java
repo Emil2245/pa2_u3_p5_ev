@@ -1,0 +1,30 @@
+package com.uce.edu.avanzada.pa2_u3_p5_ev.funcional;
+
+public class Empleado {
+    private String nombreCompleto;
+    private String pais;
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    @Override
+    public String toString() {
+        return "Empleado{" +
+                "nombreCompleto='" + nombreCompleto + '\'' +
+                ", pais='" + pais + '\'' +
+                '}';
+    }
+}
