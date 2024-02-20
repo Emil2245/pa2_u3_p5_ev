@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void metodo(String[] args) {
         System.out.println("Supplier--------------------");
         //clase
         IPersonaSupplier<String> supplierClase = new PersonaSupplierImpl();
