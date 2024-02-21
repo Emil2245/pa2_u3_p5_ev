@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 @SpringBootApplication
+@EnableAsync
 public class Pa2U3P5EvApplication implements CommandLineRunner {
 
     public static void main(String... args) {
@@ -38,7 +40,7 @@ public class Pa2U3P5EvApplication implements CommandLineRunner {
 //            iClienteService.guardar(cliente);
 //        }
         List<Cliente> listaCliente = new ArrayList<>();
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 1; i <= 20; i++) {
             Cliente cliente = new Cliente();
             cliente.setNombre("CN" + i);
             cliente.setApellido("CA" + i);
@@ -54,9 +56,7 @@ public class Pa2U3P5EvApplication implements CommandLineRunner {
         listaCliente.parallelStream().forEach(this.iClienteService::guardar);
         tiempoFinal = System.currentTimeMillis();
 
-        System.out.println("Tiempo Transcurrido: "+(tiempoFinal - tiempoInicial));
-
-
+        System.out.println("Tiempo Transcurrido: "+(tiempoFinal - tiempoInicial)+"---------------------------------------------------------------------------------------");
 
 
 
